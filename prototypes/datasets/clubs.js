@@ -9,5 +9,5 @@ const clubs = [
 ];
 
 module.exports = {
-  clubs
+  clubs,
 };

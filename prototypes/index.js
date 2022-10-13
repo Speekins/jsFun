@@ -77,7 +77,7 @@ const kittyPrompts = {
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
-  membersBelongingToClubs() {
+  membersBelongingToClubs(clubs) {
     // Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
     // Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
@@ -87,10 +87,30 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+      return clubs.reduce((students, club) => {
+        club.members.forEach(member => {
+          students[member] ? students[member].push(club.club) : students[member] = [club.club];
+        })
+        return students;
+      }, {})
+    /*
+    Annotation:
+      The difficulty in this problem is converting the original array `clubs` to a new data type,
+      in this case, an object. In order to do this, we will use `.reduce()` to iterate over the 
+      clubs array checking each club object. The `.reduce()` method's callback is given two parameters
+      --`students` (the object to be returned) and `club` (each element of the original array)--and an initial
+      value of an empty object ({}).
+      Nested within each object is an array of members containing the students names who are members
+      of those clubs. This will require a `.forEach()` loop within the `.reduce()` method, which iterates
+      over the members array within each club object.
+      Within the `.forEach()` loop we use a ternary operator to check if the accumulator object `students` has
+      a key name equivalent to the current member of the `.forEach()` loop. If so, the club name is pushed to
+      the key's equivalent value which is an array containing all of the club names that student is involved in.
+      (i.e. `student: [club, club, club]);
+      If the key of that current student's name does not already exist in the accumulator object, then the name is
+      added and assigned the value of an array containing that current club of the `reduce()` methods current iteration.
+      The accumulator object `students` is then returned once all iterations are complete.
+    */
   }
 };
 
