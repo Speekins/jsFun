@@ -20,40 +20,47 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames() {
+  orangePetNames(pets) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
 
-        /* CODE GOES HERE */
-
-    // Annotation:
-    // Write your annotation here as a comment
+    return pets.reduce((orangePetNames, pet) => {
+      if (pet.color === 'orange'){
+        orangePetNames.push(pet.name)
+      }
+      return orangePetNames
+    }, [])
+    /*
+    Annotation:
+    In order to get an entirely new data type from the provided object,
+    we should use `.reduce()` to achieve this. The function is first written
+    dynamically to have a parameter named `pets` which can be any array containing
+    multiple pet objects (with keys `name` `age` and `color`).
+    `.reduce()` is then called on the pets array and the callback is given two parameters
+    `orangePetNames` and `pet` with an initial value of `[]`.
+    As `pets` is being iterated over, the callback checks if the current pet's color
+    is orange using an `if` statement.
+    If so, the current pet's name is pushed to the accumulator array `orangePetNames`
+    which is then returned by the iterator.
+    */
+    
   },
 
-  sortByAge() {
+  sortByAge(pets) {
     // Sort the kitties by their age
 
-    /* CODE GOES HERE */
-
+    return pets.sort((a, b) => b.age - a.age);
     // Annotation:
-    // Write your annotation here as a comment
   },
 
-  growUp() {
+  growUp(pets) {
     // Return an array of kitties who have all grown up by 2 years e.g.
-    // [{
-    //   name: 'Felicia',
-    //   age: 4,
-    //   color: 'grey'
-    // },
-    // {
-    //   name: 'Tiger',
-    //   age: 7,
-    //   color: 'orange'
-    // },
-    // ...etc]
 
-    /* CODE GOES HERE */
+    pets.forEach(element => element.age += 2);
+    return pets;
+    /*
+    Annotation:
+    */
   }
 };
 
