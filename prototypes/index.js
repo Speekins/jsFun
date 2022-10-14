@@ -287,7 +287,7 @@ const classPrompts = {
     //   { roomLetter: 'G', program: 'FE', capacity: 29 }
     // ]
 
-    /* CODE GOES HERE */
+    return classrooms.filter(classroom => classroom.program === 'FE');
 
     // Annotation:
     // Write your annotation here as a comment
@@ -301,7 +301,14 @@ const classPrompts = {
     //   beCapacity: 96
     // }
 
-    /* CODE GOES HERE */
+    return classrooms.reduce((capacities, classroom) => {
+      if (classroom.program === 'FE') {
+        capacities.feCapacity ? capacities.feCapacity += classroom.capacity : capacities.feCapacity = classroom.capacity;
+      } else {
+        capacities.beCapacity ? capacities.beCapacity += classroom.capacity : capacities.beCapacity = classroom.capacity;
+      }
+      return capacities;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment
@@ -310,7 +317,7 @@ const classPrompts = {
   sortByCapacity() {
     // Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    /* CODE GOES HERE */
+    return classrooms.sort((a, b) => a.capacity - b.capacity);
 
     // Annotation:
     // Write your annotation here as a comment
