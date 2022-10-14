@@ -64,12 +64,6 @@ const kittyPrompts = {
   }
 };
 
-// PLEASE READ-----------------------
-// Currently, your functions are probably using the `kitties` global import variable.
-// refactor the above functions using arguments and parameters so that
-// they can perform the same utility
-// for the kitties or puppers datasets, depending on what arguments you send through.
-
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -149,7 +143,11 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    /* CODE GOES HERE */
+    return mods.reduce((ratios, mod) => {
+      let ratio = mod.students / mod.instructors;
+      ratios.push({ mod: mod.mod, studentsPerInstructor: ratio });
+      return ratios;
+    }, [])
 
     // Annotation:
     // Write your annotation here as a comment
