@@ -553,7 +553,7 @@ const breweryPrompts = {
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    /* CODE GOES HERE */
+    return breweries.reduce((total, brewery) => total + brewery.beers.length, 0);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -568,7 +568,10 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    /* CODE GOES HERE */
+    return breweries.reduce((sorted, brewery) => {
+      sorted.push({name: brewery.name, beerCount: brewery.beers.length});
+      return sorted;
+    }, [])
 
     // Annotation:
     // Write your annotation here as a comment
@@ -580,7 +583,9 @@ const breweryPrompts = {
     // given 'Ratio Beerworks', return 5
 
 
-    /* CODE GOES HERE */
+    let specifiedBrewery = breweries.find(brewery => brewery.name === breweryName);
+  
+    return specifiedBrewery.beers.length;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -590,8 +595,9 @@ const breweryPrompts = {
     // Return the beer which has the highest ABV of all beers
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
-
-    /* CODE GOES HERE */
+    let allBeers = breweries.map(brewery => brewery.beers).flat();
+    let sortByAbv = allBeers.sort((a, b) => b.abv - a.abv);
+    return sortByAbv[0];
 
     // Annotation:
     // Write your annotation here as a comment
