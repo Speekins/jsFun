@@ -181,7 +181,9 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    /* CODE GOES HERE */
+    return cakes.map(element => {
+      return {flavor: element.cakeFlavor, 'inStock': element.inStock} 
+    })
 
     // Annotation:
     // Write your annotation here as a comment
@@ -208,7 +210,7 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    /* CODE GOES HERE */
+    return cakes.filter(cake => !!cake.inStock);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -218,7 +220,7 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    /* CODE GOES HERE */
+    return cakes.reduce((total, currentCake) => total + currentCake.inStock, 0);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -229,8 +231,8 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    /* CODE GOES HERE */
-
+    let ingredients = cakes.map(cake => cake.toppings).flat();
+    return [...new Set(ingredients)];
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -246,7 +248,12 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    /* CODE GOES HERE */
+    return cakes.map(cake => cake.toppings)
+    .flat()
+    .reduce((list, ingredient) => {
+      list[ingredient] ? list[ingredient] += 1 : list[ingredient] = 1;
+      return list;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment
