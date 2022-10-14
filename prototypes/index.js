@@ -12,6 +12,7 @@ const { bosses, sidekicks } = require('./datasets/bosses');
 const { constellations, stars } = require('./datasets/astronomy');
 const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
+const { books } = require('./datasets/books');
 
 
 
@@ -333,7 +334,7 @@ const classPrompts = {
 // DATASET: books from './datasets/books
 
 const bookPrompts = {
-  removeViolence() {
+  removeViolence(books) {
     // Your function should access the books data through a parameter (it is being passed as an argument in the test file)
     // return an array of all book titles that are not horror or true crime. Eg:
 
@@ -343,8 +344,10 @@ const bookPrompts = {
     //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
     //   'Catch-22', 'Treasure Island']
 
+    let excludedGenres = ['Horror', 'True Crime']
 
-    /* CODE GOES HERE */
+    return books.filter(book => !excludedGenres.includes(book.genre))
+    .map(book => book.title);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -358,7 +361,12 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+    return books.reduce((decadeBooks, book) => {
+      if (book.published > 1990) {
+        decadeBooks.push({ title: book.title, year: book.published })
+      }
+      return decadeBooks;
+    }, [])
 
     // Annotation:
     // Write your annotation here as a comment
@@ -374,7 +382,12 @@ const bookPrompts = {
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+    return books.reduce((decadeBooks, book) => {
+      if (book.published > year) {
+        decadeBooks.push({ title: book.title, year: book.published })
+      }
+      return decadeBooks;
+    }, [])
 
     // Annotation:
     // Write your annotation here as a comment
