@@ -471,9 +471,20 @@ const nationalParksPrompts = {
     //   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
+    let sortedParks = {
+      parksToVisit: [],
+      parksVisited: []
+    }
 
-    /* CODE GOES HERE */
+    nationalParks.forEach(park => {
+      if (!park.visited) {
+        sortedParks.parksToVisit.push(park.name);
+      } else {
+        sortedParks.parksVisited.push(park.name);
+      }
+    })
 
+    return sortedParks;
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -487,8 +498,11 @@ const nationalParksPrompts = {
     // { Utah: 'Zion' },
     // { Florida: 'Everglades' } ]
 
-
-    /* CODE GOES HERE */
+    return nationalParks.map(park => {
+      let parkLocation = {};
+      parkLocation[park.location] = park.name;
+      return parkLocation;
+    });
 
     // Annotation:
     // Write your annotation here as a comment
@@ -510,7 +524,10 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    /* CODE GOES HERE */
+    let allActivities = nationalParks.map(park => park.activities)
+    .flat()
+    
+    return [...new Set(allActivities)];
 
     // Annotation:
     // Write your annotation here as a comment
