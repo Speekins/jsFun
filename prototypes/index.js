@@ -23,10 +23,10 @@ const { books } = require('./datasets/books');
 const kittyPrompts = {
   orangePetNames(pets) {
     // Return an array of just the names of kitties who are orange e.g.
-        // ['Tiger', 'Snickers']
+    // ['Tiger', 'Snickers']
 
     return pets.reduce((orangePetNames, pet) => {
-      if (pet.color === 'orange'){
+      if (pet.color === 'orange') {
         orangePetNames.push(pet.name)
       }
       return orangePetNames
@@ -44,7 +44,7 @@ const kittyPrompts = {
     If so, the current pet's name is pushed to the accumulator array `orangePetNames`
     which is then returned by the iterator.
     */
-    
+
   },
 
   sortByAge(pets) {
@@ -89,12 +89,12 @@ const clubPrompts = {
     //   ...etc
     // }
 
-      return clubs.reduce((students, club) => {
-        club.members.forEach(member => {
-          students[member] ? students[member].push(club.club) : students[member] = [club.club];
-        })
-        return students;
-      }, {})
+    return clubs.reduce((students, club) => {
+      club.members.forEach(member => {
+        students[member] ? students[member].push(club.club) : students[member] = [club.club];
+      })
+      return students;
+    }, {})
     /*
     Annotation:
       The difficulty in this problem is converting the original array `clubs` to a new data type,
@@ -183,7 +183,7 @@ const cakePrompts = {
     // ]
 
     return cakes.map(element => {
-      return {flavor: element.cakeFlavor, 'inStock': element.inStock} 
+      return { flavor: element.cakeFlavor, 'inStock': element.inStock }
     })
 
     // Annotation:
@@ -250,11 +250,11 @@ const cakePrompts = {
     // }
 
     return cakes.map(cake => cake.toppings)
-    .flat()
-    .reduce((list, ingredient) => {
-      list[ingredient] ? list[ingredient] += 1 : list[ingredient] = 1;
-      return list;
-    }, {})
+      .flat()
+      .reduce((list, ingredient) => {
+        list[ingredient] ? list[ingredient] += 1 : list[ingredient] = 1;
+        return list;
+      }, {})
 
     // Annotation:
     // Write your annotation here as a comment
@@ -347,7 +347,7 @@ const bookPrompts = {
     let excludedGenres = ['Horror', 'True Crime']
 
     return books.filter(book => !excludedGenres.includes(book.genre))
-    .map(book => book.title);
+      .map(book => book.title);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -525,8 +525,8 @@ const nationalParksPrompts = {
     //   'rock climbing' ]
 
     let allActivities = nationalParks.map(park => park.activities)
-    .flat()
-    
+      .flat()
+
     return [...new Set(allActivities)];
 
     // Annotation:
@@ -569,7 +569,7 @@ const breweryPrompts = {
     // ]
 
     return breweries.reduce((sorted, brewery) => {
-      sorted.push({name: brewery.name, beerCount: brewery.beers.length});
+      sorted.push({ name: brewery.name, beerCount: brewery.beers.length });
       return sorted;
     }, [])
 
@@ -584,7 +584,7 @@ const breweryPrompts = {
 
 
     let specifiedBrewery = breweries.find(brewery => brewery.name === breweryName);
-  
+
     return specifiedBrewery.beers.length;
 
     // Annotation:
@@ -618,7 +618,7 @@ const boardGamePrompts = {
     // Return an array of just the names of the games within a specified type. 
     // e.g. given an argument of "strategy", return
     // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
-    
+
     return boardGames[type].map(game => game.name);
 
     // Annotation:
@@ -641,7 +641,7 @@ const boardGamePrompts = {
     // Return an object which is the highest rated game within the specified type.
     // e.g. given the argument of 'party', return
     // { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
-   
+
     return boardGames[type].sort((a, b) => b.rating - a.rating)[0]
 
     // Annotation:
@@ -718,7 +718,14 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    /* CODE GOES HERE */
+    return instructors.reduce((totalStudents, instructor) => {
+      cohorts.forEach(cohort => {
+        if (cohort.module === instructor.module) {
+          totalStudents.push({ name: instructor.name, studentCount: cohort.studentCount });
+        }
+      })
+      return totalStudents;
+    }, [])
 
     // Annotation:
     // Write your annotation here as a comment
@@ -731,7 +738,17 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    /* CODE GOES HERE */
+    return cohorts.reduce((ratios, cohort) => {
+      let teachers = instructors.reduce((total, teacher) => {
+        if (teacher.module === cohort.module) {
+          total += 1;
+        }
+        return total;
+      }, 0)
+      let cohortName = `cohort${cohort.cohort}`;
+      ratios[cohortName] = cohort.studentCount / teachers;
+      return ratios;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment
@@ -752,7 +769,18 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    /* CODE GOES HERE */
+    return instructors.reduce((abilities, instructor) => {
+      let cohortNumbers = [];
+      cohorts.forEach(cohort => {
+        cohort.curriculum.forEach(subject => {
+          if (instructor.teaches.includes(subject)) {
+            cohortNumbers.push(cohort.module);
+          }
+        })
+      })
+      abilities[instructor.name] = [...new Set(cohortNumbers)];
+      return abilities;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment

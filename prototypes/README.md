@@ -98,7 +98,7 @@ If you'd like to keep track of your progress, feel free to use the checklist bel
 - [X] weather
 - [X] nationalParks
 - [X] breweries
-- [ ] boardGames
+- [X] boardGames
 
 ### Double Data Sets
 - [ ] turing (instructors, cohorts)
