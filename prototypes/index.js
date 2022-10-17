@@ -618,8 +618,8 @@ const boardGamePrompts = {
     // Return an array of just the names of the games within a specified type. 
     // e.g. given an argument of "strategy", return
     // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
-
-    /* CODE GOES HERE */
+    
+    return boardGames[type].map(game => game.name);
 
     // Annotation:
     // Write your annotation here as a comment
@@ -631,7 +631,7 @@ const boardGamePrompts = {
     // e.g. given an argument of "childrens", return
     // ["Candy Land", "Connect Four", "Operation", "Trouble"]
 
-    /* CODE GOES HERE */
+    return this.listGames(type).sort();
 
     // Annotation:
     // Write your annotation here as a comment
@@ -641,8 +641,8 @@ const boardGamePrompts = {
     // Return an object which is the highest rated game within the specified type.
     // e.g. given the argument of 'party', return
     // { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
-
-    /* CODE GOES HERE */
+   
+    return boardGames[type].sort((a, b) => b.rating - a.rating)[0]
 
     // Annotation:
     // Write your annotation here as a comment
@@ -653,7 +653,7 @@ const boardGamePrompts = {
     // e.g. given the argument of "strategy", return 7
     // note: do not worry about rounding your result.
 
-    /* CODE GOES HERE */
+    return boardGames[type].reduce((a, b) => a + b.rating, 0) / boardGames[type].length;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -664,8 +664,14 @@ const boardGamePrompts = {
     // and maximum number of players.
     // e.g. given the arguments of "strategy" and 2, return 6.16666666667
     // note: do not worry about rounding your result.
-
-    /* CODE GOES HERE */
+    let total = 0;
+    return boardGames[type].reduce((average, game) => {
+      if (game.maxPlayers === maximumPlayers) {
+        average += game.rating;
+        total += 1;
+      }
+      return average;
+    }, 0) / total;
 
     // Annotation:
     // Write your annotation here as a comment
