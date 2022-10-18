@@ -796,7 +796,27 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    /* CODE GOES HERE */
+    //iterate over cohorts accessing each curriculum
+    //iterate over the curriculum
+    //iterate over the instructors data set
+    //if instructor teaches array includes the current curriculum item
+    //then write ternary like so:
+    //if key subject exists then push the current instructor to its array
+    //otherwise make a new key value pair "subject: [instructor]"
+    //return the accumulator object
+
+    return cohorts.reduce((subjects, cohort) => {
+      cohort.curriculum.forEach(subject => {
+        instructors.forEach(instructor => {
+          if (instructor.teaches.includes(subject)) {
+            if (!!subjects[subject] && !subjects[subject].includes(instructor.name)) {
+              subjects[subject].push(instructor.name)
+            } else { subjects[subject] = [instructor.name] }
+          }
+        })
+      })
+      return subjects;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment
