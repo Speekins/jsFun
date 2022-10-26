@@ -29,11 +29,43 @@ const scope = {
 
     // Log D: personC
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {A: 'Ben'},
+      {B: 'CardiB'},
+      {C: 'CardiB'},
+      {D: 'Paul'}
+    ];
+
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /*
+    Three global variables are declared `PersonA` `PersonB` `PersonC`
+    assigned the values "Paul", "Ben" and "Tom" respectively.
+    The function changePerson is declared at the global level (of this exercise)
+    in which the conditional is executed (because `personA` is equal to 'Paul').
+    A variable is declared called 'person' equal to the string 'CardiB'. Though the
+    variable is declared syntactically incorrect (without 'let' keyword) it is still
+    a variable recognized by the JS engine.
+    Additionally this function then calls a function called `beautifyPerson` which exists
+    within the scope of `changePerson`. Because function declarations are hoisted (`changePerson` exists
+    logically proceeding its invocation), `changePerson` executes.
+    Within the scope of `changePerson` we can log `personB` and get its original value 'Ben' because at this
+    point in the execution of the script, the variable has not been re-assigned.
+    Then a conditional executes because its condition returns `true`. Within the conditional block, `personB`
+    is re-assigned the value assigned to `person` ('CardiB'). And the value now assigned to `personB`is re-assigned
+    to `personC` ('CardiB'). We can log `personC` and get 'CardiB' because `personB` is a global
+    variable accessible within the scope of the function (and there are no homonomously named variables
+    declared within the function scope).
+    After `beautifyPerson` ceases execution, but still within the scope of `changePerson`, `personC` is
+    re-assigned to the value held by `personB` ('Paul'). When `personB` is logged, beacuse the variable is still
+    in the global scope (and even though it was re-assigned in a function that is no longer executing--that function's
+    scope is gone) it still logs 'CardiB'.
+    Finally after `changePerson` has finished execution, and in the global scope, `personC` is logged returning 'Paul'
+    because it was re-assigned within the function. And again, even though the re-assignment occurred in a function that
+    is no longer executing, `personC` is a global variable holding it's variable despite what lower scope it may have been
+    re-assigned in.
+    */
   },
 
   exerciseB() {
@@ -63,11 +95,31 @@ const scope = {
 
     // Log D: number
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {A: 75},
+      {B: 64},
+      {C: 64},
+      {D: 30}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /*
+    Global variable `number` is declared and assigned 30. A function is then declared named `numberFunction`
+    in which a local variable `number` is declared and assigned 75.
+    An if conditional executes because its condition evalutes to true creating a new block level of scope in
+    which a local variable `number` is declared and assigned 28. This variable goes out of scope (disappears)
+    as soon as the if block finishes executing.
+    Then within `numberFunction` a new function is declared named `newNumber` in which `number` (the `number`
+    variable within the local scope of `numberFunction`) is re-assigned to the value of 64. `number` is then logged
+    giving us the value of 64.
+    `newNumber` is then called executing the above code.
+    `number` is again logged which gives us 64--because this is still occurring within the function scope of `numberFunction`
+    64 is still the value held by the local `number`
+    Outside of `numberFunction`'s scope, the function is called. And finally, number is logged again (at the global level)
+    which gives us 30 since that is the `number` the console.log statement can 'see' and is not able to see the 'number'
+    of the 'numberFunction' scope which has now gone out of scope and in essence does not exist to the JS engine anymore.
+    */
   },
 
   exerciseC() {
@@ -97,11 +149,19 @@ const scope = {
 
     // Log D: greeting
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = [
+      {A: 'Yo'},
+      {B: 'Hey'},
+      {C: 'Hey'},
+      {D: 'Hello'}
+    ];
     return result;
 
     // Annotation:
-    // Write your annotation here as a comment
+    /*
+    Similar to the previous example, with some `var` keywords instead of `let`. Otherwise,
+    replace the numbers with words and it is the same.
+    */
   },
 
   exerciseD() {
