@@ -1007,7 +1007,10 @@ const ultimaPrompts = {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
-    /* CODE GOES HERE */
+    return characters.reduce((damage, character) => {
+      character.weapons.forEach(weapon => damage += weapons[weapon].damage)
+      return damage
+    }, 0)
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1018,7 +1021,17 @@ const ultimaPrompts = {
     // Return the sum damage and total range for each character as an object.
     // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    /* CODE GOES HERE */
+    return characters.map(character => {
+      let damageTotal = 0;
+      let rangeTotal = 0;
+      for (let weapon in weapons) {
+        if (character.weapons.includes(weapon)) {
+          damageTotal += weapons[weapon].damage;
+          rangeTotal += weapons[weapon].range;
+        }
+      }
+      return { [character.name]: { damage: damageTotal, range: rangeTotal }}
+    })
 
     // Annotation:
     // Write your annotation here as a comment
