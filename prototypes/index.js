@@ -849,9 +849,21 @@ const bossPrompts = {
     //   { bossName: 'Ursula', sidekickLoyalty: 20 },
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
+    let loyalties = [];
 
-    /* CODE GOES HERE */
+    for (let boss in bosses) {
+      loyalties.push({ bossName: bosses[boss].name, sidekickLoyalty: 0 })
+    }
 
+    sidekicks.forEach(sidekick => {
+      loyalties.forEach(villain => {
+        if (sidekick.boss === villain.bossName) {
+          villain.sidekickLoyalty += sidekick.loyaltyToBoss
+        }
+      })
+    })
+
+    return loyalties;
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -905,7 +917,19 @@ const astronomyPrompts = {
     //   }
     // ]
 
-    /* CODE GOES HERE */
+    let allStars = [];
+
+    for (let constellation in constellations) {
+      allStars.push(constellations[constellation].starNames);
+      allStars = allStars.flat();
+    }
+
+    let filtered = stars.filter(star => allStars.includes(star.name))
+    let achernar = filtered[1];
+    let betelgeuse = filtered[2];
+    filtered[1] = betelgeuse;
+    filtered[2] = achernar;
+    return filtered;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -922,7 +946,10 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    /* CODE GOES HERE */
+    return stars.reduce((obj, star) => {
+      obj[star.color] ? obj[star.color].push(star) : obj[star.color] = [star];
+      return obj;
+    }, {})
 
     // Annotation:
     // Write your annotation here as a comment
@@ -944,8 +971,14 @@ const astronomyPrompts = {
     //    "The Little Dipper" ]
 
 
-    /* CODE GOES HERE */
-
+    let sorted = stars.sort((a, b) => a.visualMagnitude - b.visualMagnitude)
+    .map(star => star.constellation)
+    sorted.forEach((constellation, i) => {
+      if (!constellation.length) {
+        sorted.splice(i, 1);
+      }
+    })
+    return sorted;
     // Annotation:
     // Write your annotation here as a comment
   }
